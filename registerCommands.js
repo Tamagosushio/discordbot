@@ -3,8 +3,8 @@ const { REST, Routes } = require("discord.js");
 const { token, clientId, guildId } = require("./config.json");
 
 // ディレクトリ内のファイル名を取得
-const commandFiles = fs.readdirSync('./commands')
-                        .filter(file => file.endsWith('.js'))
+const commandFiles = fs.readdirSync("./commands")
+                        .filter(file => file.endsWith(".js"))
 // コマンド情報を配列に格納する     
 const commands = []
 for(const file of commandFiles){
