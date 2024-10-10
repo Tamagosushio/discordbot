@@ -1,22 +1,24 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
+const id = "hey";
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("hey")
+    .setName(id)
     .setDescription("押すと挨拶するボタンを生成"),
   async execute(interaction){
     await interaction.reply({
-      component: [
+      content: "ボタンを生成",
+      components: [
         new ActionRowBuilder().addComponents(
           new ButtonBuilder()
-            .setCustomId("hey")
+            .setCustomId(id)
             .setLabel("👋")
             .setStyle(ButtonStyle.Success)
         )
       ]
     });
   },
-  async clickedButton(interaction){
+  async handlerButton(interaction){
     await interaction.reply({
       content: "hello",
       ephemeral: true
