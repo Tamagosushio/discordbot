@@ -8,15 +8,15 @@ const commandFiles = fs.readdirSync("./commands")
 // コマンド情報を配列に格納する     
 const commands = []
 for(const file of commandFiles){
-    console.log(file);
-    const command = require(`./commands/${file}`);
-    commands.push(command.data.toJSON());
+  console.log(file);
+  const command = require(`./commands/${file}`);
+  commands.push(command.data.toJSON());
 }
 
 // rest通信
 const rest = new REST().setToken(token);
 rest.put(
-    Routes.applicationGuildCommands(clientId, guildId),
-    { body: commands }
+  Routes.applicationGuildCommands(clientId, guildId),
+  { body: commands }
 ).then(() => {console.log('registering commands is completed!')})
  .catch(console.error);
