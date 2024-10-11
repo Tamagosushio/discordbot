@@ -18,7 +18,7 @@ module.exports = {
       ]
     });
   },
-  async handlerButton(interaction){
+  async handlerComponents(interaction){
     await interaction.reply({
       content: "hello",
       ephemeral: true

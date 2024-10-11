@@ -12,13 +12,13 @@ const commandFiles = fs.readdirSync("./commands")
                         .filter(file => file.endsWith(".js"))
 
 client.commands = new Collection();
-client.buttons = new Collection();
+client.components = new Collection();
 
 for(const file of commandFiles){
   const command = require(`./commands/${file}`);
   client.commands.set(command.data.name, command);
-	if("handlerButton" in command){
-		client.buttons.set(command.data.name, command);
+	if("handlerComponents" in command){
+		client.components.set(command.data.name, command);
 	}
 }
 
@@ -35,9 +35,9 @@ client.on("interactionCreate", async (interaction) => {
   if(interaction.isChatInputCommand()){
 		const command = interaction.client.commands.get(interaction.commandName);
 		await command.execute(interaction);
-	}else if(interaction.isButton()){
-		const command = interaction.client.buttons.get(interaction.customId);
-		await command.handlerButton(interaction);
+	}else if(interaction.isButton() || interaction.isAnySelectMenu()){
+		const command = interaction.client.components.get(interaction.customId);
+		await command.handlerComponents(interaction);
 	}
 });
 
