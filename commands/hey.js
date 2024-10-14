@@ -1,9 +1,8 @@
-const { SlashCommandBuilder } = require("discord.js");
-const { ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
-const id = "hey";
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const commandName = "hey";
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(id)
+    .setName(commandName)
     .setDescription("押すと挨拶するボタンを生成"),
   async execute(interaction){
     await interaction.reply({
@@ -11,16 +10,29 @@ module.exports = {
       components: [
         new ActionRowBuilder().addComponents(
           new ButtonBuilder()
-            .setCustomId(id)
-            .setLabel("👋")
-            .setStyle(ButtonStyle.Success)
+            .setCustomId(`${commandName}:hello`)
+            .setLabel("hello!")
+            .setStyle(ButtonStyle.Success),
+          new ButtonBuilder()
+            .setCustomId(`${commandName}:bye`)
+            .setEmoji("👋")
+            .setStyle(ButtonStyle.Danger)
         )
       ]
     });
   },
-  async handlerComponents(interaction){
+  async handleComponents(interaction){
+    const [_, buttonName] = interaction.customId.split(":");
+    let sendContent = "";
+    if(buttonName === "hello"){
+      sendContent = "hello!";
+    }else if(buttonName === "bye"){
+      sendContent = "bye!";
+    }else{
+      return;
+    }
     await interaction.reply({
-      content: "hello",
+      content: sendContent,
       ephemeral: true
     });
   }

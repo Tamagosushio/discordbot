@@ -17,8 +17,8 @@ client.components = new Collection();
 for(const file of commandFiles){
   const command = require(`./commands/${file}`);
   client.commands.set(command.data.name, command);
-	if("handlerComponents" in command){
-		client.components.set(command.data.name, command);
+	if("handleComponents" in command){
+      client.components.set(command.data.name, command);
 	}
 }
 
@@ -32,12 +32,14 @@ client.on("messageCreate", (message) => {
 });
 
 client.on("interactionCreate", async (interaction) => {
+  interaction.client.user.setActivity("テストだよ～");
   if(interaction.isChatInputCommand()){
 		const command = interaction.client.commands.get(interaction.commandName);
 		await command.execute(interaction);
-	}else if(interaction.isButton() || interaction.isAnySelectMenu()){
-		const command = interaction.client.components.get(interaction.customId);
-		await command.handlerComponents(interaction);
+	}else if(interaction.isMessageComponent()){
+    const [commandName, _] = interaction.customId.split(":");
+		const command = interaction.client.components.get(commandName);
+		await command.handleComponents(interaction);
 	}
 });
 

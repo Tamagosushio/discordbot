@@ -1,10 +1,10 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
-const id = "fruits";
+const commandName = "fruits";
 const fruitsList = ["apple", "melon", "orange"];
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(id)
+    .setName(commandName)
     .setDescription("フルーツを列挙するセレクトメニューを生成"),
   async execute(interaction){
     const options = fruitsList.map((fruit) => {
@@ -17,15 +17,16 @@ module.exports = {
       components: [
         new ActionRowBuilder().addComponents(
           new StringSelectMenuBuilder()
-            .setCustomId(id)
+            .setCustomId(`${commandName}:`)
             .addOptions(options)
+            .setMaxValues(options.length)
         )
       ]
     });
   },
-  async handlerComponents(interaction){
+  async handleComponents(interaction){
     await interaction.reply({
-      content: interaction.values.join(""),
+      content: interaction.values.join(","),
       ephemeral: true
     })
   }
