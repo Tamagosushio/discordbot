@@ -32,7 +32,6 @@ client.on("messageCreate", (message) => {
 });
 
 client.on("interactionCreate", async (interaction) => {
-  interaction.client.user.setActivity("テストだよ～");
   if(interaction.isChatInputCommand()){
 		const command = interaction.client.commands.get(interaction.commandName);
 		await command.execute(interaction);

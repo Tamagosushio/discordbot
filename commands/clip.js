@@ -11,7 +11,7 @@ module.exports = {
   async execute(interaction){
     const title = interaction.options.getString("title")
     const replyEmbed = new EmbedBuilder()
-      .setTitle(title ? title : "無題")
+      .setTitle(title || "無題")
       .setDescription((new Date()).toLocaleString())
       .setColor("Random");
     interaction.reply({
