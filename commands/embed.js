@@ -15,7 +15,7 @@ module.exports = {
     )
     .addNumberOption((option) => 
       option.setName("color")
-        .setDescription("色のRGBコード(16進数)")
+        .setDescription("色")
         .setRequired(false)
         .addChoices(
           { name: "red",   value: 0xFF0000 },
@@ -28,7 +28,6 @@ module.exports = {
     const replyEmbed = new EmbedBuilder()
       .setTitle(options.getString("title") || "無題")
       .setDescription(options.getString("description") || "\u200b")
-      .setAuthor({ name:interaction.user.globalName, iconURL:interaction.user.avatarURL() })
       .setColor(options.getNumber("color") || "Random")
     interaction.reply({
       embeds: [replyEmbed]
