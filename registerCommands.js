@@ -18,5 +18,5 @@ const rest = new REST().setToken(token);
 rest.put(
   Routes.applicationGuildCommands(clientId, guildId),
   { body: commands }
-).then(() => {console.log("Command registration is complete!")})
+).then(() => {console.log("Command registration completed!")})
  .catch(console.error);
