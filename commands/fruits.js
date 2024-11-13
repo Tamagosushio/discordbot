@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
+const { ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require("discord.js");
 const commandName = "fruits";
 const fruitsList = ["apple", "melon", "orange"];
 module.exports = {
