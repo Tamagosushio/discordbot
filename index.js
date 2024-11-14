@@ -1,8 +1,10 @@
-const { Client, GatewayIntentBits, Collection, ButtonBuilder, IntegrationApplication } = require("discord.js");
+const { Client, GatewayIntentBits, Collection } = require("discord.js");
+const { joinVoiceChannel } = require("@discordjs/voice");
 const client = new Client({ intents: [
   GatewayIntentBits.Guilds,
   GatewayIntentBits.MessageContent,
   GatewayIntentBits.GuildMessages,
+  GatewayIntentBits.GuildVoiceStates,
 ]});
 const { token } = require("./config.json");
 
@@ -41,5 +43,22 @@ client.on("interactionCreate", async (interaction) => {
 		await command.handleComponents(interaction);
 	}
 });
+
+let connection;
+client.on("voiceStateUpdate", async (oldState, newState) => {
+  if(!(oldState && newState && !newState.member.user.bot)) return;
+  if(!oldState.channel && newState.channel){
+    connection = joinVoiceChannel({
+      channelId: newState.channel.id,
+      guildId: newState.guild.id,
+      adapterCreator: newState.guild.voiceAdapterCreator,
+      selfMute: false,
+    });
+  }else if(oldState.channelId && !newState.channelId){
+    if(oldState.channel.members.every(member => member.user.bot)){
+      connection.destroy();
+    }
+  }
+})
 
 client.login(token);	
