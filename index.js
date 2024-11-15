@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
-const { joinVoiceChannel } = require("@discordjs/voice");
+const { sound, leaveVC } = require("./libs/sound.js")
+
 const client = new Client({ intents: [
   GatewayIntentBits.Guilds,
   GatewayIntentBits.MessageContent,
@@ -44,19 +45,13 @@ client.on("interactionCreate", async (interaction) => {
 	}
 });
 
-let connection;
 client.on("voiceStateUpdate", async (oldState, newState) => {
   if(!(oldState && newState && !newState.member.user.bot)) return;
   if(!oldState.channel && newState.channel){
-    connection = joinVoiceChannel({
-      channelId: newState.channel.id,
-      guildId: newState.guild.id,
-      adapterCreator: newState.guild.voiceAdapterCreator,
-      selfMute: false,
-    });
+    sound(client, newState, "./sounds/coin001.mp3");
   }else if(oldState.channelId && !newState.channelId){
     if(oldState.channel.members.every(member => member.user.bot)){
-      connection.destroy();
+      leaveVC();
     }
   }
 })
