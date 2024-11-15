@@ -2,12 +2,12 @@ const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colle
 const { sound } = require("../libs/sound.js");
 const { soundboard } = require("../sounds/soundboard.json");
 const commandName = "soundboard";
-const label2Path = new Collection();
 
+const label2Path = new Collection();
 const actionRows = [];
 let currentRow = new ActionRowBuilder();
 soundboard.forEach((value, idx) => {
-  label2Path.set(value.label, value.path);
+  label2Path[value.label] = value.path;
   const button = new ButtonBuilder()
       .setCustomId(`${commandName}:${value.label}`)
       .setLabel(value.label)
@@ -22,19 +22,19 @@ soundboard.forEach((value, idx) => {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName(commandName)
-    .setDescription("押すと挨拶するボタンを生成"),
+    .setDescription("サウンドボートを送信"),
   async execute(interaction){
     await interaction.reply({
-      content: "サウンドボードを生成",
+      content: "サウンドボードを生成しました",
       components: actionRows
     });
   },
-  async handleComponents(interaction, client){
+  async handleComponents(interaction){
     const [_, buttonName] = interaction.customId.split(":");
-    sound(client, interaction, `sounds/${label2Path[buttonName]}`);
-    interaction.reply({
-      content: "音声を再生",
+    sound(interaction.applicationId, interaction, `./sounds/${label2Path[buttonName]}`);
+    await interaction.reply({
+      content: "音声を再生しました",
       ephemeral: true
-    })
+    });
   }
 }
