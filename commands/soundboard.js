@@ -1,0 +1,40 @@
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require("discord.js");
+const { sound } = require("../libs/sound.js");
+const { soundboard } = require("../sounds/soundboard.json");
+const commandName = "soundboard";
+const label2Path = new Collection();
+
+const actionRows = [];
+let currentRow = new ActionRowBuilder();
+soundboard.forEach((value, idx) => {
+  label2Path.set(value.label, value.path);
+  const button = new ButtonBuilder()
+      .setCustomId(`${commandName}:${value.label}`)
+      .setLabel(value.label)
+      .setStyle(ButtonStyle.Success)
+  currentRow.addComponents(button);
+  if((idx+1) % 5 === 0 || idx === soundboard.length-1){
+    actionRows.push(currentRow);
+    currentRow = new ActionRowBuilder();
+  }
+})
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName(commandName)
+    .setDescription("押すと挨拶するボタンを生成"),
+  async execute(interaction){
+    await interaction.reply({
+      content: "サウンドボードを生成",
+      components: actionRows
+    });
+  },
+  async handleComponents(interaction, client){
+    const [_, buttonName] = interaction.customId.split(":");
+    sound(client, interaction, `sounds/${label2Path[buttonName]}`);
+    interaction.reply({
+      content: "音声を再生",
+      ephemeral: true
+    })
+  }
+}

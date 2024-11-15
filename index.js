@@ -41,7 +41,7 @@ client.on("interactionCreate", async (interaction) => {
 	}else if(interaction.isMessageComponent()){
     const [commandName, _] = interaction.customId.split(":");
 		const command = interaction.client.components.get(commandName);
-		await command.handleComponents(interaction);
+		await command.handleComponents(interaction, client);
 	}
 });
 
