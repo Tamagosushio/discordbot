@@ -41,14 +41,14 @@ client.on("interactionCreate", async (interaction) => {
 	}else if(interaction.isMessageComponent()){
     const [commandName, _] = interaction.customId.split(":");
 		const command = interaction.client.components.get(commandName);
-		await command.handleComponents(interaction, client);
+		await command.handleComponents(interaction);
 	}
 });
 
 client.on("voiceStateUpdate", async (oldState, newState) => {
   if(!(oldState && newState && !newState.member.user.bot)) return;
   if(!oldState.channel && newState.channel){
-    sound(client, newState, "./sounds/coin001.mp3");
+    sound(client.user.id, newState, "./sounds/coin001.mp3");
   }else if(oldState.channelId && !newState.channelId){
     if(oldState.channel.members.every(member => member.user.bot)){
       leaveVC();

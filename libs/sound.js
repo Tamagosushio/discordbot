@@ -1,9 +1,9 @@
 const { createAudioPlayer, createAudioResource, joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
 
 let connection, player;
-async function sound(client, trigger, soundPath){
+async function sound(botId, trigger, soundPath){
   if(trigger.member.voice.channel){
-    if(!trigger.member.voice.channel.members.find(member => member.id === client.user.id)){
+    if(!trigger.member.voice.channel.members.find(member => member.id === botId)){
       connection = joinVoiceChannel({
         channelId: trigger.channel.id,
         guildId: trigger.guild.id,
