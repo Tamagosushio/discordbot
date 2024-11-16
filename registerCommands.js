@@ -16,8 +16,7 @@ for(const file of commandFiles){
 // rest通信
 const rest = new REST().setToken(token);
 rest.put(
-  // Routes.applicationGuildCommands(clientId, guildId),
-  Routes.applicationCommands(clientId),
+  Routes.applicationGuildCommands(clientId, guildId),
   { body: commands }
 ).then(() => {console.log("Command registration completed!")})
  .catch(console.error);
