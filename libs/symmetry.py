@@ -1,5 +1,4 @@
 from imread_from_url import imread_from_url
-from io import BytesIO
 import cv2
 import base64
 import sys
