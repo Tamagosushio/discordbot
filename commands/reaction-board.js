@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, ActionRowBuilder, ChannelSelectMenuBuilder, ChannelType, EmbedBuilder } = require("discord.js");
-const { fetchAllMessages } = require("../libs/fetchAllMessages.js")
+const { fetchAllMessages } = require("../libs/fetchAllMessages.js");
 const commandName = "reaction-board";
 const emojiRegex = /^\p{Emoji}$/u;
 module.exports = {
@@ -55,13 +55,13 @@ module.exports = {
       await interaction.followUp({
         content: "ヒットしませんでした。",
         ephemeral: true
-      })
+      });
       return;
     }
     let messageEmbeds = [];
     const listMessageEmbeds = [];
     okMessages.forEach((message, idx) => {
-      const file = message.attachments.first()
+      const file = message.attachments.first();
       messageEmbeds.push(
         new EmbedBuilder()
         .setTitle(`${emoji} ${message.reactions.cache.get(emoji)?.count} https://discord.com/channels/${interaction.guildId}/${channelId}/${message.id}`)

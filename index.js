@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
-const { sound, leaveVC } = require("./libs/sound.js")
+const { sound, leaveVC } = require("./libs/sound.js");
 
 const client = new Client({ intents: [
   GatewayIntentBits.Guilds,
@@ -54,6 +54,6 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
       leaveVC();
     }
   }
-})
+});
 
 client.login(token);	

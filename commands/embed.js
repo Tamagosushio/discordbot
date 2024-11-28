@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("embed")
@@ -28,7 +28,7 @@ module.exports = {
     const replyEmbed = new EmbedBuilder()
       .setTitle(options.getString("title") || "無題")
       .setDescription(options.getString("description") || "\u200b")
-      .setColor(options.getNumber("color") || "Random")
+      .setColor(options.getNumber("color") || "Random");
     interaction.reply({
       embeds: [replyEmbed]
     });

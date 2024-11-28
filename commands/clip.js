@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("clip")
@@ -9,13 +9,13 @@ module.exports = {
         .setRequired(false)
     ),
   async execute(interaction){
-    const title = interaction.options.getString("title")
+    const title = interaction.options.getString("title");
     const replyEmbed = new EmbedBuilder()
       .setTitle(title || "無題")
       .setDescription((new Date()).toLocaleString())
       .setColor("Random");
     interaction.reply({
       embeds: [replyEmbed]
-    })
+    });
   }
 }

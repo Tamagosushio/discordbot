@@ -29,7 +29,7 @@ module.exports = {
       await interaction.reply({
         content: "画像生成に失敗しました",
         ephemeral: true
-      })
+      });
     }
-  },
+  }
 }

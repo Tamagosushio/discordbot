@@ -11,7 +11,7 @@ soundboard.forEach((value, idx) => {
   const button = new ButtonBuilder()
       .setCustomId(`${commandName}:${value.label}`)
       .setLabel(value.label)
-      .setStyle(ButtonStyle.Success)
+      .setStyle(ButtonStyle.Success);
   currentRow.addComponents(button);
   if((idx+1) % 5 === 0 || idx === soundboard.length-1){
     actionRows.push(currentRow);
