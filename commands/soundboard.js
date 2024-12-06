@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require("discord.js");
-const { sound } = require("../libs/sound.js");
+const { playSound } = require("../libs/playSound.js");
 const { soundboard } = require("../sounds/soundboard.json");
 const commandName = "soundboard";
 
@@ -31,7 +31,7 @@ module.exports = {
   },
   async handleComponents(interaction){
     const [_, buttonName] = interaction.customId.split(":");
-    sound(interaction.applicationId, interaction, `./sounds/${label2Path[buttonName]}`);
+    playSound(interaction.applicationId, interaction, `./sounds/${label2Path[buttonName]}`);
     await interaction.reply({
       content: "音声を再生しました",
       ephemeral: true

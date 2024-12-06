@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
-const { sound, leaveVC } = require("./libs/sound.js")
+const { playSound, leaveVC } = require("./libs/playSound.js")
 
 const client = new Client({ intents: [
   GatewayIntentBits.Guilds,
@@ -48,7 +48,7 @@ client.on("interactionCreate", async (interaction) => {
 client.on("voiceStateUpdate", async (oldState, newState) => {
   if(!(oldState && newState && !newState.member.user.bot)) return;
   if(!oldState.channel && newState.channel){
-    sound(client.user.id, newState, "./sounds/coin001.mp3");
+    playSound(client.user.id, newState, "./sounds/coin001.mp3");
   }else if(oldState.channelId && !newState.channelId){
     if(oldState.channel.members.every(member => member.user.bot)){
       leaveVC();

@@ -1,7 +1,7 @@
 const { createAudioPlayer, createAudioResource, joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
 
 let connection, player;
-async function sound(botId, trigger, soundPath){
+async function playSound(botId, trigger, soundPath){
   if(trigger.member.voice.channel){
     if(!trigger.member.voice.channel.members.find(member => member.id === botId)){
       connection = joinVoiceChannel({
@@ -23,4 +23,4 @@ async function leaveVC(){
   }
 }
 
-module.exports = { sound, leaveVC };
+module.exports = { playSound, leaveVC };
