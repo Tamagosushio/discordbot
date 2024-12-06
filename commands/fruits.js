@@ -11,7 +11,7 @@ module.exports = {
       return new StringSelectMenuOptionBuilder()
         .setLabel(fruit)
         .setValue(fruit)
-    })
+    });
     await interaction.reply({
       content: "セレクトメニューを生成",
       components: [
@@ -28,6 +28,6 @@ module.exports = {
     await interaction.reply({
       content: interaction.values.join(","),
       ephemeral: true
-    })
+    });
   }
 }

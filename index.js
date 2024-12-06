@@ -54,6 +54,6 @@ client.on("voiceStateUpdate", async (oldState, newState) => {
       leaveVC();
     }
   }
-})
+});
 
 client.login(token);	

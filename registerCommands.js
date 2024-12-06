@@ -6,7 +6,7 @@ const { token, clientId, guildId } = require("./config.json");
 const commandFiles = fs.readdirSync("./commands")
                         .filter(file => file.endsWith(".js"))
 // コマンド情報を配列に格納する     
-const commands = []
+const commands = [];
 for(const file of commandFiles){
   console.log(file);
   const command = require(`./commands/${file}`);
